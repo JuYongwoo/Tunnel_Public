@@ -1,4 +1,4 @@
-![게임 스크린샷](https://github.com/JuYongWoo/Tunnel/blob/main/Images/ScreenShot.png)
+![게임 시연](https://github.com/JuYongWoo/Tunnel_Public/blob/main/README/Tunnel_GIF.gif)
 
 
 # 프로젝트 설명
