@@ -62,7 +62,7 @@ public class InGameImagePanel :MonoBehaviour
     {
         if (!inGameUICanvasObjsMap[InGameUICanvasObjsEnum.DiaryImage].activeSelf)
         {
-            ManagerObject.instance.soundManager.PlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+            ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
             CloseAll();
             inGameUICanvasObjsMap[InGameUICanvasObjsEnum.DiaryImage].SetActive(true);
             inGameUICanvasObjsMap[InGameUICanvasObjsEnum.DiaryContentText].GetComponent<Text>().text = ManagerObject.instance.actionManager.OnGetNowMissionText();
@@ -73,7 +73,7 @@ public class InGameImagePanel :MonoBehaviour
     {
         if (inGameUICanvasObjsMap[InGameUICanvasObjsEnum.DiaryImage].activeSelf
     || inGameUICanvasObjsMap[InGameUICanvasObjsEnum.PictureBookImg].activeSelf
-    || inGameUICanvasObjsMap[InGameUICanvasObjsEnum.TextBookBGImg].activeSelf) ManagerObject.instance.soundManager.PlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+    || inGameUICanvasObjsMap[InGameUICanvasObjsEnum.TextBookBGImg].activeSelf) ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
 
 
         CloseAll();

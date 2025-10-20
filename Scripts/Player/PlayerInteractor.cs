@@ -50,12 +50,12 @@ public class PlayerInteractor : MonoBehaviour
 
             if (type == ItemType.PictureBook)
             {
-                ManagerObject.instance.soundManager.PlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+                ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
                 ManagerObject.instance.actionManager.OnUsePictureBook(obj.GetComponent<Image>().sprite);
             }
             else if (type == ItemType.Textbook)
             {
-                ManagerObject.instance.soundManager.PlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+                ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
                 ManagerObject.instance.actionManager.OnUseTextBook(obj.GetComponent<Text>().text);
 
             }
@@ -66,7 +66,7 @@ public class PlayerInteractor : MonoBehaviour
                 {
                     obj.transform.Rotate(0, 90, 0); //Y 90도 회전
                     obj.GetComponent<Collider>().enabled = false;
-                    ManagerObject.instance.soundManager.PlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.doorsound].Result, 0.3f, false);
+                    ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.doorsound].Result, 0.3f, false);
                 }
                 else
                 {
@@ -76,7 +76,7 @@ public class PlayerInteractor : MonoBehaviour
             else if (type == ItemType.Key)
             {
                 ManagerObject.instance.actionManager.OnGetItem(obj);
-                ManagerObject.instance.soundManager.PlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+                ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
                 obj.GetComponent<Key>().DisableAction();
                 obj.SetActive(false);
             }

@@ -139,7 +139,7 @@ public class SettingsPanel : MonoBehaviour
 
     private void SliderChangeEvent(float value)
     {
-        ManagerObject.instance.soundManager.UpdateVolume(value);
+        ManagerObject.instance.actionManager.OnSetMasterVolume(value);
 
     }
 }

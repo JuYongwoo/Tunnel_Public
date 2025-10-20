@@ -60,7 +60,7 @@ public class InGameInventoryPanel : MonoBehaviour
     {
         if (!InGameInventoryPanelObjsMap[InGameInventoryPanelObjs.InGameInventoryView].activeSelf)
         {
-            ManagerObject.instance.soundManager.PlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+            ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
             InGameInventoryPanelObjsMap[InGameInventoryPanelObjs.InGameInventoryView].SetActive(true);
         }
     }

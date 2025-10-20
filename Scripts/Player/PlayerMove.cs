@@ -73,7 +73,7 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator stepsoundplay()
     {
-        ManagerObject.instance.soundManager.PlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.stepsound].Result, 0.2f, false);
+        ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.stepsound].Result, 0.2f, false);
         yield return new WaitForSeconds(0.5f);
         stepsoundcoroutine = null;
 
