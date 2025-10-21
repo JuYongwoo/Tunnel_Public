@@ -12,45 +12,42 @@ public class InGameChapterBase : MonoBehaviour
     private string[] invencontentname = new string[30];
     private int invencount = 0;
 
-    private GameObject InCodePrefab;
+    private void Awake()
+    {
+        ManagerObject.instance.resourceManager.CacheSceneObjects(); //씬에 있는 오브젝트들을 캐싱
+        ManagerObject.instance.eventManager.ThisScenePlayer = GameObject.FindGameObjectWithTag("Player"); // 현재 씬에서의 Player 오브젝트, 씬에서 한번만 실행
+        
+        ManagerObject.instance.eventManager.GetItemEvent -= GetItem;
+        ManagerObject.instance.eventManager.GetItemEvent += GetItem;
+        ManagerObject.instance.eventManager.FindInvenEvent -= FindInven;
+        ManagerObject.instance.eventManager.FindInvenEvent += FindInven;
 
+    }
 
     protected virtual void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        ManagerObject.instance.resourceManager.CacheSceneObjects(); //씬에 있는 오브젝트들을 캐싱
-
-        ManagerObject.instance.actionManager.ThisScenePlayer = GameObject.FindGameObjectWithTag("Player"); // 현재 씬에서의 Player 오브젝트, 씬에서 한번만 실행
-
-
         triggerEvent.OnStart(SceneManager.GetActiveScene()); //현재씬의 트리거 로드
         doorKey.OnStart(); //현재씬의 문과 열쇠 매칭
 
-
-        ManagerObject.instance.actionManager.GetItemEvent -= GetItem;
-        ManagerObject.instance.actionManager.GetItemEvent += GetItem;
-        ManagerObject.instance.actionManager.FindInvenEvent -= FindInven;
-        ManagerObject.instance.actionManager.FindInvenEvent += FindInven;
 
     }
 
     protected void Update()
     {
-        triggerEvent.OnUpdate();
+        triggerEvent.OnUpdate(); //TODO: event Action을 통해 트리거 발동 -> 업데이트할 필요가 있으면 이벤트 구독 후 ?.Invoke()로 사용하도록 변경 고려
     }
 
 
     protected virtual void OnDestroy()
     {
-        ManagerObject.instance.actionManager.GetItemEvent -= GetItem;
-        ManagerObject.instance.actionManager.FindInvenEvent -= FindInven;
+        ManagerObject.instance.eventManager.GetItemEvent -= GetItem;
+        ManagerObject.instance.eventManager.FindInvenEvent -= FindInven;
         triggerEvent.OnDestroy();
 
     }
-
-
 
     private void GetItem(GameObject item)
     {
@@ -60,16 +57,14 @@ public class InGameChapterBase : MonoBehaviour
         invencount += 1;
 
         GameObject itemininventoryprefab = new GameObject();
-        itemininventoryprefab.AddComponent<Image>();
-        InCodePrefab = GameObject.Instantiate(itemininventoryprefab); //인벤토리에 버튼(아이템)생성
-        InCodePrefab.transform.SetParent(ManagerObject.instance.actionManager.OnGetContentFolder().transform); //프리팹 소환 시 content 아래에 생성
-        InCodePrefab.GetComponent<Image>().sprite = item.GetComponent<Image>().sprite;
+        itemininventoryprefab.transform.SetParent(ManagerObject.instance.eventManager.OnGetContentFolder().transform); //프리팹 소환 시 content 아래에 생성
+        itemininventoryprefab.AddComponent<Image>().sprite = item.GetComponent<Image>().sprite;
     }
-    public void InvenNameSubmit()
+    private void InvenNameSubmit()
     {
         invencontentname[invencount] = inven[invencount].name;
     }
-    public bool FindInven(string name)
+    private bool FindInven(string name)
     {
         int pos = Array.IndexOf(invencontentname, name);
         if (pos > -1)

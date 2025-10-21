@@ -23,25 +23,28 @@ public class InGameInventoryPanel : MonoBehaviour
     {
         InGameInventoryPanelObjsMap = Util.MapEnumChildObjects<InGameInventoryPanelObjs, GameObject>(this.gameObject);
 
+        ManagerObject.instance.eventManager.GetContentFolderEvent -= GetContentFolder;
+        ManagerObject.instance.eventManager.GetContentFolderEvent += GetContentFolder;
+
+        ManagerObject.instance.eventManager.InGameESCKeyEvent -= CloseInventoryPanel;
+        ManagerObject.instance.eventManager.InGameESCKeyEvent += CloseInventoryPanel;
+
+        ManagerObject.instance.eventManager.InGameTabKeyEvent -= InventoryOpen;
+        ManagerObject.instance.eventManager.InGameTabKeyEvent += InventoryOpen;
+    }
+
+    private void Start()
+    {
         InGameInventoryPanelObjsMap[InGameInventoryPanelObjs.InGameInventoryView].SetActive(false);
-
-        ManagerObject.instance.actionManager.GetContentFolderEvent -= GetContentFolder;
-        ManagerObject.instance.actionManager.GetContentFolderEvent += GetContentFolder;
-
-        ManagerObject.instance.actionManager.InGameESCKeyEvent -= CloseInventoryPanel;
-        ManagerObject.instance.actionManager.InGameESCKeyEvent += CloseInventoryPanel;
-
-        ManagerObject.instance.actionManager.InGameTabKeyEvent -= InventoryOpen;
-        ManagerObject.instance.actionManager.InGameTabKeyEvent += InventoryOpen;
     }
 
 
 
     private void OnDestroy()
     {
-        ManagerObject.instance.actionManager.GetContentFolderEvent -= GetContentFolder;
-        ManagerObject.instance.actionManager.InGameESCKeyEvent -= CloseInventoryPanel;
-        ManagerObject.instance.actionManager.InGameTabKeyEvent -= InventoryOpen;
+        ManagerObject.instance.eventManager.GetContentFolderEvent -= GetContentFolder;
+        ManagerObject.instance.eventManager.InGameESCKeyEvent -= CloseInventoryPanel;
+        ManagerObject.instance.eventManager.InGameTabKeyEvent -= InventoryOpen;
 
     }
 
@@ -60,7 +63,7 @@ public class InGameInventoryPanel : MonoBehaviour
     {
         if (!InGameInventoryPanelObjsMap[InGameInventoryPanelObjs.InGameInventoryView].activeSelf)
         {
-            ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+            ManagerObject.instance.eventManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
             InGameInventoryPanelObjsMap[InGameInventoryPanelObjs.InGameInventoryView].SetActive(true);
         }
     }

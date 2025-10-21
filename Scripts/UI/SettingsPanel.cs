@@ -30,12 +30,15 @@ public class SettingsPanel : MonoBehaviour
 
     private Dictionary<SettingsPanelObjs, GameObject> settingsPanelObjsMap;
 
+    private void Awake()
+    {
+        settingsPanelObjsMap = Util.MapEnumChildObjects<SettingsPanelObjs, GameObject>(this.gameObject);
+    }
 
     private void Start()
     {
-        settingsPanelObjsMap = Util.MapEnumChildObjects<SettingsPanelObjs, GameObject>(this.gameObject);
-
-        var all = transform.root.GetComponentsInChildren<Transform>(true);
+        ManagerObject.instance.eventManager.SettingsPanelOnEvent -= SettingOn;
+        ManagerObject.instance.eventManager.SettingsPanelOnEvent += SettingOn;
 
         settingsPanelObjsMap[SettingsPanelObjs.SettingExitButton].GetComponent<Button>().onClick.AddListener(() => {
             settingsPanelObjsMap[SettingsPanelObjs.SettingsPanel].gameObject.SetActive(false);
@@ -50,8 +53,6 @@ public class SettingsPanel : MonoBehaviour
         settingsPanelObjsMap[SettingsPanelObjs.SettingsPanel].gameObject.SetActive(false);
         settingsPanelObjsMap[SettingsPanelObjs.TotalSoundSlider].GetComponent<Slider>().onValueChanged.AddListener((value) => { SliderChangeEvent(value); });
 
-        ManagerObject.instance.actionManager.SettingsPanelOnEvent -= SettingOn;
-        ManagerObject.instance.actionManager.SettingsPanelOnEvent += SettingOn;
 
         VideoButtonClick();
         InitVideoSettings();
@@ -59,7 +60,7 @@ public class SettingsPanel : MonoBehaviour
 
     private void OnDestroy()
     {
-        ManagerObject.instance.actionManager.SettingsPanelOnEvent -= SettingOn;
+        ManagerObject.instance.eventManager.SettingsPanelOnEvent -= SettingOn;
 
     }
 
@@ -139,7 +140,7 @@ public class SettingsPanel : MonoBehaviour
 
     private void SliderChangeEvent(float value)
     {
-        ManagerObject.instance.actionManager.OnSetMasterVolume(value);
+        ManagerObject.instance.eventManager.OnSetMasterVolume(value);
 
     }
 }

@@ -15,12 +15,12 @@ public class PlayerInteractor : MonoBehaviour
         {
             rayObject = hit.transform.gameObject;
             if (!TryHandleRayTarget(rayObject))
-                ManagerObject.instance.actionManager.OnUseUIOff();
+                ManagerObject.instance.eventManager.OnUseUIOff();
         }
         else
         {
             rayObject = null;
-            ManagerObject.instance.actionManager.OnUseUIOff();
+            ManagerObject.instance.eventManager.OnUseUIOff();
         }
     }
 
@@ -43,40 +43,40 @@ public class PlayerInteractor : MonoBehaviour
 
     bool HandleInteraction(ItemType type, GameObject obj, string message)
     {
-        ManagerObject.instance.actionManager.OnUseUIOn(message);
+        ManagerObject.instance.eventManager.OnUseUIOn(message);
         if (Input.GetKeyDown(KeyCode.E))
         {
 
 
             if (type == ItemType.PictureBook)
             {
-                ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
-                ManagerObject.instance.actionManager.OnUsePictureBook(obj.GetComponent<Image>().sprite);
+                ManagerObject.instance.eventManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+                ManagerObject.instance.eventManager.OnUsePictureBook(obj.GetComponent<Image>().sprite);
             }
             else if (type == ItemType.Textbook)
             {
-                ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
-                ManagerObject.instance.actionManager.OnUseTextBook(obj.GetComponent<Text>().text);
+                ManagerObject.instance.eventManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+                ManagerObject.instance.eventManager.OnUseTextBook(obj.GetComponent<Text>().text);
 
             }
             else if (type == ItemType.Door)
             {
 
-                if (ManagerObject.instance.actionManager.OnFindInven(obj.GetComponent<Door>().KeyName)) // 해당 문의 door class의 KeyName이 인벤토리에 있는지 확인
+                if (ManagerObject.instance.eventManager.OnFindInven(obj.GetComponent<Door>().KeyName)) // 해당 문의 door class의 KeyName이 인벤토리에 있는지 확인
                 {
                     obj.transform.Rotate(0, 90, 0); //Y 90도 회전
                     obj.GetComponent<Collider>().enabled = false;
-                    ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.doorsound].Result, 0.3f, false);
+                    ManagerObject.instance.eventManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.doorsound].Result, 0.3f, false);
                 }
                 else
                 {
-                    ManagerObject.instance.actionManager.OnRequireKey();
+                    ManagerObject.instance.eventManager.OnRequireKey();
                 }
             }
             else if (type == ItemType.Key)
             {
-                ManagerObject.instance.actionManager.OnGetItem(obj);
-                ManagerObject.instance.actionManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
+                ManagerObject.instance.eventManager.OnGetItem(obj);
+                ManagerObject.instance.eventManager.OnPlayAudioClip(ManagerObject.instance.resourceManager.soundsmap[SoundsEnum.papersound].Result, 0.3f, false);
                 obj.GetComponent<Key>().DisableAction();
                 obj.SetActive(false);
             }

@@ -15,25 +15,26 @@ public class InGameFadePanel : MonoBehaviour
     private Action FadeAction;
     private Dictionary<InGameFadePanelObjs, GameObject> InGameFadePanelObjsMap;
 
-
     private void Awake()
     {
 
         InGameFadePanelObjsMap = Util.MapEnumChildObjects<InGameFadePanelObjs, GameObject>(this.gameObject);
+
+        ManagerObject.instance.eventManager.FadeInEvent -= BindFadeIn;
+        ManagerObject.instance.eventManager.FadeInEvent += BindFadeIn;
+
+        ManagerObject.instance.eventManager.FadeOutEvent -= BindFadeOut;
+        ManagerObject.instance.eventManager.FadeOutEvent += BindFadeOut;
+    }
+    private void Start()
+    {
         InGameFadePanelObjsMap[InGameFadePanelObjs.FadeImg].SetActive(true); //페이드인 아웃은 알파값으로 조절, 항상 켜진상태
-
-        ManagerObject.instance.actionManager.FadeInEvent -= BindFadeIn;
-        ManagerObject.instance.actionManager.FadeInEvent += BindFadeIn;
-
-        ManagerObject.instance.actionManager.FadeOutEvent -= BindFadeOut;
-        ManagerObject.instance.actionManager.FadeOutEvent += BindFadeOut;
     }
 
     private void Update()
     {
         FadeAction?.Invoke();
     }
-
 
     private void SetAlpha(float alpha)
     {
@@ -89,7 +90,7 @@ public class InGameFadePanel : MonoBehaviour
 
     private void OnDestroy()
     {
-        ManagerObject.instance.actionManager.FadeInEvent -= BindFadeIn;
-        ManagerObject.instance.actionManager.FadeOutEvent -= BindFadeOut;
+        ManagerObject.instance.eventManager.FadeInEvent -= BindFadeIn;
+        ManagerObject.instance.eventManager.FadeOutEvent -= BindFadeOut;
     }
 }

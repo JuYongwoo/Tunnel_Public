@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (ManagerObject.instance.actionManager.ThisScenePlayer) playerPos = ManagerObject.instance.actionManager.ThisScenePlayer.transform.position;
+        if (ManagerObject.instance.eventManager.ThisScenePlayer) playerPos = ManagerObject.instance.eventManager.ThisScenePlayer.transform.position;
         transform.position = playerPos;
         if (Input.GetKey(KeyCode.LeftControl)) playerPos.y -= 0.5f;//1인칭 게임이기 때문에 실제 플레이어 아닌 카메라만 아래로
 

@@ -17,6 +17,6 @@ public class Following : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.destination = ManagerObject.instance.actionManager.ThisScenePlayer.transform.position;
+        agent.destination = ManagerObject.instance.eventManager.ThisScenePlayer.transform.position;
     }
 }

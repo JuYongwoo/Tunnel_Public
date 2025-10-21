@@ -25,7 +25,22 @@ public class InGameBasicPanel : MonoBehaviour
 
         InGameBasicPanelObjsMap = Util.MapEnumChildObjects<InGameBasicPanelObjs, GameObject>(this.gameObject);
 
+        ManagerObject.instance.eventManager.RequireKeyEvent -= BindRequireKey;
+        ManagerObject.instance.eventManager.RequireKeyEvent += BindRequireKey;
 
+
+        ManagerObject.instance.eventManager.UseUIOnEvent -= BindUseUIOn;
+        ManagerObject.instance.eventManager.UseUIOnEvent += BindUseUIOn;
+
+        ManagerObject.instance.eventManager.UseUIOffEvent -= BindUseUIOff;
+        ManagerObject.instance.eventManager.UseUIOffEvent += BindUseUIOff;
+
+        ManagerObject.instance.eventManager.SpeechEvent -= BindSpeech;
+        ManagerObject.instance.eventManager.SpeechEvent += BindSpeech;
+    }
+
+    private void Start()
+    {
         // 시작 시 활성화
         InGameBasicPanelObjsMap[InGameBasicPanelObjs.QDiaryText].SetActive(true);
         InGameBasicPanelObjsMap[InGameBasicPanelObjs.TabInventoryText].SetActive(true);
@@ -33,28 +48,15 @@ public class InGameBasicPanel : MonoBehaviour
         InGameBasicPanelObjsMap[InGameBasicPanelObjs.UseText].SetActive(true);
         InGameBasicPanelObjsMap[InGameBasicPanelObjs.PlayerSpeechText].SetActive(true);
 
-
-        ManagerObject.instance.actionManager.RequireKeyEvent -= BindRequireKey;
-        ManagerObject.instance.actionManager.RequireKeyEvent += BindRequireKey;
-
-
-        ManagerObject.instance.actionManager.UseUIOnEvent -= BindUseUIOn;
-        ManagerObject.instance.actionManager.UseUIOnEvent += BindUseUIOn;
-
-        ManagerObject.instance.actionManager.UseUIOffEvent -= BindUseUIOff;
-        ManagerObject.instance.actionManager.UseUIOffEvent += BindUseUIOff;
-
-        ManagerObject.instance.actionManager.SpeechEvent -= BindSpeech;
-        ManagerObject.instance.actionManager.SpeechEvent += BindSpeech;
     }
 
     private void OnDestroy()
     {
 
-        ManagerObject.instance.actionManager.RequireKeyEvent -= BindRequireKey;
-        ManagerObject.instance.actionManager.UseUIOnEvent -= BindUseUIOn;
-        ManagerObject.instance.actionManager.UseUIOffEvent -= BindUseUIOff;
-        ManagerObject.instance.actionManager.SpeechEvent -= BindSpeech;
+        ManagerObject.instance.eventManager.RequireKeyEvent -= BindRequireKey;
+        ManagerObject.instance.eventManager.UseUIOnEvent -= BindUseUIOn;
+        ManagerObject.instance.eventManager.UseUIOffEvent -= BindUseUIOff;
+        ManagerObject.instance.eventManager.SpeechEvent -= BindSpeech;
     }
 
 

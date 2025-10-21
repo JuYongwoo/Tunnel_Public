@@ -32,7 +32,7 @@ public class TitlePanel : MonoBehaviour
             SceneManager.LoadScene("Chapter1");
         });
         titleUIObjsMap[TitlePanelObjsEnum.SettingsButton].GetComponent<Button>().onClick.AddListener(() => {
-            ManagerObject.instance.actionManager.OnSettingsPanelOn();
+            ManagerObject.instance.eventManager.OnSettingsPanelOn();
         });
         titleUIObjsMap[TitlePanelObjsEnum.GameExitButton].GetComponent<Button>().onClick.AddListener(() => {
             Application.Quit();
