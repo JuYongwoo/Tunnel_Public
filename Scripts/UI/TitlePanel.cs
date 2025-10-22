@@ -18,7 +18,6 @@ public class TitlePanel : MonoBehaviour
     private Dictionary<TitlePanelObjsEnum, GameObject> titleUIObjsMap;
 
 
-
     private void Awake()
     {
         titleUIObjsMap = Util.MapEnumChildObjects<TitlePanelObjsEnum, GameObject>(this.gameObject);
@@ -38,19 +37,12 @@ public class TitlePanel : MonoBehaviour
             Application.Quit();
         });
         
-
-    }
-
-    private void Start()
-    {
         foreach(var trs in titleUIObjsMap)
         {
             AttachHoverEvents(trs.Value.transform);
         }
 
-        
     }
-
 
     private void AttachHoverEvents(Transform trs)
     {

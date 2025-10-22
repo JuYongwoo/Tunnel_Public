@@ -33,10 +33,6 @@ public class SettingsPanel : MonoBehaviour
     private void Awake()
     {
         settingsPanelObjsMap = Util.MapEnumChildObjects<SettingsPanelObjs, GameObject>(this.gameObject);
-    }
-
-    private void Start()
-    {
         ManagerObject.instance.eventManager.SettingsPanelOnEvent -= SettingOn;
         ManagerObject.instance.eventManager.SettingsPanelOnEvent += SettingOn;
 
@@ -52,8 +48,10 @@ public class SettingsPanel : MonoBehaviour
         settingsPanelObjsMap[SettingsPanelObjs.VideoDropdown].GetComponent<Dropdown>().AddOptions(new List<string> { "1920 x 1080", "1600 x 900" });
         settingsPanelObjsMap[SettingsPanelObjs.SettingsPanel].gameObject.SetActive(false);
         settingsPanelObjsMap[SettingsPanelObjs.TotalSoundSlider].GetComponent<Slider>().onValueChanged.AddListener((value) => { SliderChangeEvent(value); });
+    }
 
-
+    private void Start()
+    {
         VideoButtonClick();
         InitVideoSettings();
     }

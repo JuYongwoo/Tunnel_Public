@@ -13,8 +13,11 @@ public class InGameAimPanel : MonoBehaviour
 
     private void Awake()
     {
-
         InGameAimPanelObjsMap = Util.MapEnumChildObjects<InGameAimPanelObjs, GameObject>(gameObject);
+    }
+
+    private void Start()
+    {
         InGameAimPanelObjsMap[InGameAimPanelObjs.AimText].SetActive(true);
     }
 }
